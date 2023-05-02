@@ -112,15 +112,22 @@ function getBaryCenter(objects: Obj[]): [number, number] {
 
 function getMomentum(objects: Obj[]): [number, number] {
   let mmx = 0, mmy = 0;
-  let msum = 0;
   objects.forEach(obj => {
     mmx += obj.vx * obj.mass;
     mmy += obj.vy * obj.mass;
-    msum += obj.mass;
   });
-  return [mmx / msum, mmy / msum];
+  return [mmx, mmy];
 }
 
+function getAngularMomentum(objects: Obj[], bmx: number, bmy: number): number {
+  let am = 0;
+  objects.forEach(obj => {
+    let p = [obj.vx * obj.mass, obj.vy * obj.mass];
+    let r = [obj.x - bmx, obj.y - bmy];
+    am += p[0] * r[1] - p[1] * r[0];
+  });
+  return am;
+}
 
 function frame() {
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -134,6 +141,8 @@ function frame() {
     (document.getElementById('baryCenterDisplay') as HTMLParagraphElement).textContent = "BaryCenter: " + bcx.toFixed(2) + ", " + bcy.toFixed(2);
     const [mx, my] = getMomentum(objects);
     (document.getElementById('momentumDisplay') as HTMLParagraphElement).textContent = "Momentum: " + mx.toFixed(2) + ", " + my.toFixed(2);
+    const am = getAngularMomentum(objects, bcx, bcy);
+    (document.getElementById('angularMomentumDisplay') as HTMLParagraphElement).textContent = "AngularMomentum: " + am.toFixed(2);
   }
 
   handle = window.requestAnimationFrame(frame);
