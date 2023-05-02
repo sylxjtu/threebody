@@ -99,6 +99,29 @@ function update(obj: Obj): Obj {
 
 let handle = -1
 
+function getBaryCenter(objects: Obj[]): [number, number] {
+  let bmcx = 0, bmcy = 0;
+  let msum = 0;
+  objects.forEach(obj => {
+    bmcx += obj.x * obj.mass;
+    bmcy += obj.y * obj.mass;
+    msum += obj.mass;
+  });
+  return [bmcx / msum, bmcy / msum];
+}
+
+function getMomentum(objects: Obj[]): [number, number] {
+  let mmx = 0, mmy = 0;
+  let msum = 0;
+  objects.forEach(obj => {
+    mmx += obj.vx * obj.mass;
+    mmy += obj.vy * obj.mass;
+    msum += obj.mass;
+  });
+  return [mmx / msum, mmy / msum];
+}
+
+
 function frame() {
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
   for (let i = 0; i < stepPerFrame; i++) {
@@ -106,6 +129,12 @@ function frame() {
     objects = objects.map(update);
   }
   objects.forEach(draw);
+  if ((document.getElementById('debugInfo') as HTMLInputElement).checked) {
+    const [bcx, bcy] = getBaryCenter(objects);
+    (document.getElementById('baryCenterDisplay') as HTMLParagraphElement).textContent = "BaryCenter: " + bcx.toFixed(2) + ", " + bcy.toFixed(2);
+    const [mx, my] = getMomentum(objects);
+    (document.getElementById('momentumDisplay') as HTMLParagraphElement).textContent = "Momentum: " + mx.toFixed(2) + ", " + my.toFixed(2);
+  }
 
   handle = window.requestAnimationFrame(frame);
 }
@@ -152,7 +181,7 @@ function randomizeFull() {
 }
 
 function randomize() {
- if (Boolean((document.getElementById("zerom") as HTMLInputElement).value)) {
+ if ((document.getElementById("zerom") as HTMLInputElement).checked) {
   randomizeZeroM();
  } else {
   randomizeFull();
