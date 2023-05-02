@@ -88,8 +88,8 @@ function update(obj: Obj): Obj {
   })
 
   return new Obj(
-    obj.x + obj.vx * timeFac,
-    obj.y + obj.vy * timeFac,
+    obj.x + obj.vx * timeFac + ax * timeFac * timeFac,
+    obj.y + obj.vy * timeFac + ay * timeFac * timeFac,
     obj.vx + ax * timeFac,
     obj.vy + ay * timeFac,
     obj.r,
