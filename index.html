@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    #container {
+      height: 600px;
+      width: 800px;
+    }
+    #main, #bg {
+      height: 600px;
+      width: 800px;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    #bg {
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <canvas id="bg" height="600" width="800"></canvas>
+    <canvas id="main" height="600" width="800"></canvas>
+  </div>
+  <hr>
+  <label>Vx_earth</label>
+  <input id="vxearth" type="number" value="0">
+  <label>Vy_earth</label>
+  <input id="vyearth" type="number" value="0">
+  <hr>
+  <label>Vx_moon</label>
+  <input id="vxmoon" type="number" value="0">
+  <label>Vy_moon</label>
+  <input id="vymoon" type="number" value="0">
+  <hr>
+  <label>Vx_mars</label>
+  <input id="vxmars" type="number" value="0">
+  <label>Vy_mars</label>
+  <input id="vymars" type="number" value="0">
+  <hr>
+  <label>G</label>
+  <input id="g" type="number" value="0.1">
+  <hr>
+  <p>Randomize Config</p>
+  <label>Velocity Scale</label>
+  <input id="vscale" type="number" value="0.2">
+  <label>Zero Momentum</label>
+  <input id="zerom" type="checkbox" checked>
+  <hr>
+  <button onclick="randomize()">Randomize</button>
+  <button onclick="reset()">Reset</button>
+  <button onclick="randomize(); reset();">Randomize & Reset</button>
+  <script src="/index.js"></script>
+</body>
+</html>
