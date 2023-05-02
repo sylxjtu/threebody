@@ -1,10 +1,14 @@
-# Three body simulator
+# Three Body Simulator
 
-just for fun
+Just for fun
+
+![screenshot](screenshot.jpg)
+
+## Run
 
 ```
 tsc index.ts
 python -m http.server
 ```
 
-http://localhost:8000
+Then access http://localhost:8000
