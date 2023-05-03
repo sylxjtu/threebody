@@ -17,11 +17,13 @@ jobs:
         run: npm install -g typescript
       - name: Compile TypeScript to JavaScript
         run: tsc index.ts
+      - name: Copy files
+        run: mkdir dist && cp index.html index.js dist
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.3
         with:
           branch: gh-pages
-          folder: .
+          folder: dist
           clean: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
