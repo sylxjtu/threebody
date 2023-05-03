@@ -5,12 +5,16 @@ on:
       - main
 jobs:
   build-and-deploy:
-    runs-on: archlinux-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Install TypeScript compiler
-        run: pacman -Syu typescript --noconfirm
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - name: Install TypeScript
+        run: npm install -g typescript
       - name: Compile TypeScript to JavaScript
         run: tsc index.ts
       - name: Deploy
